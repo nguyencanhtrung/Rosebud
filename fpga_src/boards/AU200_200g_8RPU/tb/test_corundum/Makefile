@@ -1,16 +1,6 @@
-# Icarus verilog
 ICARUS_INC_DIR ?= /usr/local/include/iverilog
+
 SIM ?= icarus
-INC_DIR=$(ICARUS_INC_DIR)
-# End of Icarus
-
-# Questasim 
-# QUESTA_INC_DIR ?= /opt/Siemens/Questa/20.4/questasim/bin
-# SIM ?= questa
-# INC_DIR=$(QUESTA_INC_DIR)
-# End of Questasim 
-
-
 TOPLEVEL_LANG ?= verilog
 CWD=.
 export COCOTB_REDUCED_LOG_FMT=1
@@ -36,7 +26,6 @@ VERILOG_SOURCES  = $(CWD)/../$(TOPLEVEL).v
 VERILOG_SOURCES += $(RTL_DIR)/fpga_core.v
 VERILOG_SOURCES += $(RTL_DIR)/rpu_PR.v
 VERILOG_SOURCES += $(RTL_DIR)/lb_rr_lu_PR.v
-# VERILOG_SOURCES += $(RTL_DIR)/lb_hash_dropping_PR.v
 VERILOG_SOURCES += $(RTL_DIR)/pcie_config.v
 VERILOG_SOURCES += $(RTL_DIR)/sync_signal.v
 
@@ -76,6 +65,7 @@ VERILOG_SOURCES += $(ROSEBUD)/corundum.v
 VERILOG_SOURCES += $(ROSEBUD)/axis_fifo_w_count.v
 VERILOG_SOURCES += $(ROSEBUD)/axis_stopper.v
 VERILOG_SOURCES += $(ROSEBUD)/axis_dropper.v
+
 
 VERILOG_SOURCES += $(AXIS_LIB)/arbiter.v
 VERILOG_SOURCES += $(AXIS_LIB)/priority_encoder.v
@@ -125,15 +115,12 @@ VERILOG_SOURCES += $(CORUNDUM_LIB)/tdma_scheduler.v
 VERILOG_SOURCES += $(CORUNDUM_LIB)/event_mux.v
 
 PLUSARGS+=-fst
-
+INC_DIR=$(ICARUS_INC_DIR)
 
 include $(shell cocotb-config --makefiles)/Makefile.sim
 
 compile:
-	make -C ../../../../../riscv_code/ NAME=basic_fw
-	make -C ../../../../../riscv_code/ NAME=basic_fw_n_bc
-	make -C ../../../../../riscv_code/ NAME=dram_test
-	make -C ../../../../../riscv_code/ NAME=drop
+	make -C ../../../../../riscv_code/ NAME=basic_corundum_tb
 
 clean::
 	@rm -rf *.xml __pycache__

@@ -300,11 +300,11 @@ object CsrPluginConfig{
     mscratchGen    = false,
     mcauseAccess   = CsrAccess.READ_ONLY,
     mbadaddrAccess = CsrAccess.NONE,
-    mcycleAccess   = CsrAccess.NONE,
+    mcycleAccess   = CsrAccess.READ_WRITE,
     minstretAccess = CsrAccess.NONE,
     ecallGen       = false,
     wfiGenAsWait         = false,
-    ucycleAccess   = CsrAccess.NONE,
+    ucycleAccess   = CsrAccess.READ_ONLY,
     uinstretAccess = CsrAccess.NONE
   )
 
